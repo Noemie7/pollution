@@ -48,23 +48,19 @@
 
 		d3.json(requestUrlValence, function(data) {
 			console.log(data["indices"]["data"]);
-			var rectYBase = 10;
+			var rectYBase = 700;
 			canvas.selectAll("rect.valenceData")
 					.classed("valenceData", true)
 					.data(data["indices"]["data"])
 					.enter()
-						.filter(function(d, i) {return i < 7;})
+						.filter(function(d, i) {return i < 8;})
 						.append('rect')
 						.attr('width', function(d, i) {return d.valeur;})
 						.attr('height', function(d, i) {return d.valeur;})
 						.attr("x", function(d) {return (50 - d.valeur/2);})
 						.attr("y", function(d, i) {
-							if ( i == 0) {
+								rectYBase = rectYBase - d.valeur;
 								return rectYBase;
-							} else {
-								rectYBase = rectYBase + Number(data["indices"]["data"][i-1]["valeur"]);
-								return rectYBase;
-							}
 						})
 						.attr('fill', function(d) {
 							var g = 250 - d.valeur * 3;
@@ -74,24 +70,20 @@
 
 		d3.json(requestUrlGrenoble, function(data) {
 			console.log(data["indices"]["data"]);
-			var rectYBase = 10;
+			var rectYBase = 700;
 			var rectXBase = 100;
 			canvas.selectAll("rect.grenobleData")
 					.classed("grenobleData", true)
 					.data(data["indices"]["data"])
 					.enter()
-						.filter(function(d, i) {return i < 7;})
+						.filter(function(d, i) {return i < 8;})
 						.append('rect')
 						.attr('width', function(d, i) {return d.valeur;})
 						.attr('height', function(d, i) {return d.valeur;})
 						.attr('x', function(d) {return (rectXBase + 50 - d.valeur/2);})
-						.attr("y", function(d, i) {
-							if ( i == 0) {
+						.attr("y", function(d) {
+								rectYBase = rectYBase - d.valeur;
 								return rectYBase;
-							} else {
-								rectYBase = rectYBase + Number(data["indices"]["data"][i-1]["valeur"]);
-								return rectYBase;
-							}
 						})
 						.attr('fill', function(d) {
 							var g = 250 - d.valeur * 3;
@@ -101,25 +93,21 @@
 
 		d3.json(requestUrlLyon, function(data) {
 			console.log(data["indices"]["data"]);
-			var rectYBase = 10;
+			var rectYBase = 700;
 			var rectXBase = 200;
 			canvas.selectAll("rect.lyonData")
 					.classed("lyonData", true)
 					.attr('class', 'lyonData')
 					.data(data["indices"]["data"])
 					.enter()
-						.filter(function(d, i) {return i < 7;})
+						.filter(function(d, i) {return i < 8;})
 						.append('rect')
 						.attr('width', function(d, i) {return d.valeur;})
 						.attr('height', function(d, i) {return d.valeur;})
 						.attr('x', function(d) {return (rectXBase + 50 - d.valeur/2);})
-						.attr("y", function(d, i) {
-							if ( i == 0) {
+						.attr("y", function(d) {
+								rectYBase = rectYBase - d.valeur;
 								return rectYBase;
-							} else {
-								rectYBase = rectYBase + Number(data["indices"]["data"][i-1]["valeur"]);
-								return rectYBase;
-							}
 						})
 						.attr('fill', function(d) {
 							var g = 250 - d.valeur * 3;
@@ -127,6 +115,13 @@
 							return "rgb("+r+","+g+",64)"})
 						.on("mouseover", handleMouseOver());
 		})
+
+		canvas.append("line")
+					.attr("x1",10)
+					.attr("y1",700)
+					.attr("x2",500)
+					.attr("y2",700)
+					.attr("stroke","black");
 
 	function handleMouseOver(d, i) {
 		canvas.append("text")
