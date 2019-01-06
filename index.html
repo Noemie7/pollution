@@ -57,6 +57,7 @@
 						.append('rect')
 						.attr('width', function(d, i) {return d.valeur;})
 						.attr('height', function(d, i) {return d.valeur;})
+						.attr("x", function(d) {return (50 - d.valeur/2);})
 						.attr("y", function(d, i) {
 							if ( i == 0) {
 								return rectYBase;
@@ -83,7 +84,7 @@
 						.append('rect')
 						.attr('width', function(d, i) {return d.valeur;})
 						.attr('height', function(d, i) {return d.valeur;})
-						.attr('x', rectXBase)
+						.attr('x', function(d) {return (rectXBase + 50 - d.valeur/2);})
 						.attr("y", function(d, i) {
 							if ( i == 0) {
 								return rectYBase;
@@ -111,7 +112,7 @@
 						.append('rect')
 						.attr('width', function(d, i) {return d.valeur;})
 						.attr('height', function(d, i) {return d.valeur;})
-						.attr('x', rectXBase)
+						.attr('x', function(d) {return (rectXBase + 50 - d.valeur/2);})
 						.attr("y", function(d, i) {
 							if ( i == 0) {
 								return rectYBase;
