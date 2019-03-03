@@ -113,7 +113,28 @@
 							var g = 250 - d.valeur * 3;
 							var r = d.valeur * 3;
 							return "rgb("+r+","+g+",64)"})
-						.on("mouseover", handleMouseOver());
+						.on("mouseover", function(d,i){
+							console.log(d,i, canvas, this, this.ownerSVGElement);
+							canvas.append("text")
+								.attr({
+								id : "t",
+								x : 300,
+								y : 300}).text(function() {return d.date + " : " + d.valeur;});;
+
+						});
+
+						//
+						function handleMouseOver() {
+							console.log("hover");
+							this.append("text")
+								.attr({
+								id : "t",
+								x : 300,
+								y : 300
+							})
+								.text(function() {return d + " : " + i;});
+						}
+
 		})
 
 		canvas.append("line")
@@ -123,15 +144,7 @@
 					.attr("y2",700)
 					.attr("stroke","black");
 
-	function handleMouseOver(d, i) {
-		canvas.append("text")
-			.attr({
-			id : "t",
-			x : 300,
-			y : 300
-		})
-			.text(function() {return d + " : " + i;});
-	}
+
 
 		</script>
 
