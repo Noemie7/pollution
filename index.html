@@ -39,11 +39,16 @@
 									.enter()
 									.filter(function(d, i) {return i < 9;})
 									.append("g")
-									.attr("transform", function(d,i){ return "translate(" + i * barWidth + "," + (y(yMax) - y(d.valeur)) + ")";});
+									.attr("transform", function(d,i){ return "translate(" + (9 - i) * barWidth + "," + (y(yMax) - y(d.valeur)) + ")";});
 
 			bar.append("rect")
 				.attr("width", barWidth - 1)
-				.attr("height", function(d) {return y(d.valeur);});
+				.attr("height", function(d) {return y(d.valeur);})
+				.attr("fill", function(d,i) {
+					if (i === 0) { return "rgba(75,161,216,0.3)";}
+					else if ( i === 1) { return "rgba(75,161,216,0.6)";}
+					else { return "steelblue";}
+				});
 
 			bar.append("text")
 				.attr("x", barWidth / 2)

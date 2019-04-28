@@ -3,9 +3,9 @@ body {
   font-family: sans-serif;
 }
 
-.barChart rect {
+/* .barChart rect {
   fill: steelblue;
-}
+} */
 
 .barChart text {
   fill: white;
