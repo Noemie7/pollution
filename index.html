@@ -30,30 +30,55 @@
 		d3.json(requestUrlGrenoble, function(data) {
 			console.log("barchart : ",data);
 
-			var yMax = d3.max(data["indices"]["data"], function(d) {return d.valeur;});
+			var yMax = 100;//d3.max(data["indices"]["data"], function(d) {return d.valeur;});
 			y.domain([0, yMax]);
-			console.log("yMax : ", yMax);
 
 			var bar = barChart.selectAll("g")
 									.data(data["indices"]["data"])
 									.enter()
 									.filter(function(d, i) {return i < 9;})
 									.append("g")
-									.attr("transform", function(d,i){ return "translate(" + (9 - i) * barWidth + "," + (y(yMax) - y(d.valeur)) + ")";});
+									.attr("transform", function(d,i){ return "translate(" + (9 - i) * barWidth + "," + (y(yMax-d.valeur)) + ")";});
 
+			// Blue part : 40 < value < 80
 			bar.append("rect")
 				.attr("width", barWidth - 1)
-				.attr("height", function(d) {return y(d.valeur);})
+				.attr("height", function(d) {
+					if (d.valeur > 80) { return y(40);}
+					else if (d.valeur > 40){ return (y(d.valeur - 40));}
+				})
 				.attr("fill", function(d,i) {
-					if (i === 0) { return "rgba(75,161,216,0.3)";}
-					else if ( i === 1) { return "rgba(75,161,216,0.6)";}
-					else { return "steelblue";}
+					if (i === 0) { return "rgba(75,161,216,0.6)";}
+					else if ( i === 1) { return "rgba(75,161,216,1)";}
+					else { return "rgba(75,161,216,0.6)";}
+				});
+
+			// Green part : value < 40
+			bar.append("rect")
+				.attr("width", barWidth - 1)
+				.attr("height", function(d) {
+					if (d.valeur > 40) { return y(40);}
+					else { return y(d.valeur);}
+				})
+				.attr("transform", function(d){
+					if (d.valeur > 40) { return "translate(0," + y(d.valeur - 40) + ")";}
+					else { return "translate(0,0)";}
+				})
+				.attr("fill", function(d,i) {
+					if (i === 0) { return "rgba(106,237,117,0.6)";}
+					else if ( i === 1) { return "rgba(106,237,117,1)";}
+					else { return "rgba(106,237,117,0.6)";}
 				});
 
 			bar.append("text")
 				.attr("x", barWidth / 2)
-				.attr("y", 20)
+				.attr("y", -5)
 				.attr("dx", ".50em")
+				.style("fill",function(d){
+					if (d.valeur <= 40) { return "rgb(16,112,24)";}
+					else if ( d.valeur <= 80) { return "rgb(75,161,216)";}
+					else { return "rgb(106,237,117)";}
+				})
 				.text(function(d) {return d.valeur.substring(0,2);})
 
 		})

@@ -8,7 +8,7 @@ body {
 } */
 
 .barChart text {
-  fill: white;
+  /* fill: white; */
   font: 12px sans-serif;
   text-anchor: end;
 }
