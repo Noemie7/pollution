@@ -40,6 +40,9 @@
 									.append("g")
 									.attr("transform", function(d,i){ return "translate(" + (9 - i) * barWidth + "," + (y(yMax-d.valeur)) + ")";});
 
+			barChart.append('path')
+				.attr('d', "M 320 305 h 40 l -20 20 z").style("fill", "rgba(106,237,117,1)");
+
 			// Red Purple part : value > 60
 			bar.append("rect")
 				.attr("width", barWidth - 1)
@@ -79,8 +82,7 @@
 					else { return "translate(0,0)";}
 				})
 				.attr("fill", function(d,i) {
-					if (i === 0) { return "rgba(75,161,216,0.6)";}
-					else if ( i === 1) { return "rgba(75,161,216,1)";}
+					if (i === 1) { return "rgba(75,161,216,1)";}
 					else { return "rgba(75,161,216,0.6)";}
 				});
 
@@ -97,8 +99,7 @@
 					else { return "translate(0,0)";}
 				})
 				.attr("fill", function(d,i) {
-					if (i === 0) { return "rgba(106,237,117,0.6)";}
-					else if ( i === 1) { return "rgba(106,237,117,1)";}
+					if (i === 1) { return "rgba(106,237,117,1)";}
 					else { return "rgba(106,237,117,0.6)";}
 				});
 
