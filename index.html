@@ -33,6 +33,21 @@
 			var yMax = 100;//d3.max(data["indices"]["data"], function(d) {return d.valeur;});
 			y.domain([0, yMax]);
 
+
+			var annotation = barChart.selectAll(".annotation")
+					.classed("annotation", true)
+					.data(data["indices"]["data"])
+					.enter()
+					.filter(function(d, i) {return i === 1;})
+					.append('path')
+					.attr('d', "M 320 305 h 40 l -20 20 z")
+					.style("fill", function(d) {
+						if (d.valeur <= 20) { return "rgb(106,237,117)";}
+						else if ( d.valeur <= 50) { return "rgb(75,161,216)";}
+						else if ( d.valeur <= 60) { return "rgb(121,146,155)";}
+						else { return "rgb(160,8,69)";}
+					});
+
 			var bar = barChart.selectAll("g")
 									.data(data["indices"]["data"])
 									.enter()
@@ -40,8 +55,9 @@
 									.append("g")
 									.attr("transform", function(d,i){ return "translate(" + (9 - i) * barWidth + "," + (y(yMax-d.valeur)) + ")";});
 
-			barChart.append('path')
-				.attr('d', "M 320 305 h 40 l -20 20 z").style("fill", "rgba(106,237,117,1)");
+			// barChart.append('path')
+			// 		.attr('d', "M 320 305 h 40 l -20 20 z")
+			// 		.style("fill", "rgba(106,237,117,1)");
 
 			// Red Purple part : value > 60
 			bar.append("rect")
@@ -51,7 +67,7 @@
 				})
 				.attr("fill", function(d,i) {
 					if (i === 1) { return "rgba(160,8,69,1)";}
-					else { return "rgba(160,8,69,0.6)";}
+					else { return "rgba(160,8,69,0.5)";}
 				});
 
 			// Purple part : 50 < value < 60
@@ -67,7 +83,7 @@
 				})
 				.attr("fill", function(d,i) {
 					if (i === 1) { return "rgba(121,146,155,1)";}
-					else { return "rgba(75,161,216,0.6)";}
+					else { return "rgba(75,161,216,0.5)";}
 				});
 
 			// Blue part : 20 < value < 50
@@ -83,7 +99,7 @@
 				})
 				.attr("fill", function(d,i) {
 					if (i === 1) { return "rgba(75,161,216,1)";}
-					else { return "rgba(75,161,216,0.6)";}
+					else { return "rgba(75,161,216,0.5)";}
 				});
 
 			// Green part : value < 20
@@ -100,7 +116,7 @@
 				})
 				.attr("fill", function(d,i) {
 					if (i === 1) { return "rgba(106,237,117,1)";}
-					else { return "rgba(106,237,117,0.6)";}
+					else { return "rgba(106,237,117,0.5)";}
 				});
 
 			bar.append("text")
