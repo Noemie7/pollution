@@ -3,12 +3,12 @@ body {
   font-family: sans-serif;
 }
 
-/* .barChart rect {
-  fill: steelblue;
-} */
-
 .barChart text {
   /* fill: white; */
   font: 12px sans-serif;
   text-anchor: end;
+}
+
+.annotation {
+  font: 20px sans-serif;
 }

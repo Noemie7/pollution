@@ -18,7 +18,7 @@
 		<script>
 		var requestUrlGrenoble = 'https://api.atmo-aura.fr/communes/38185/indices?api_token=5a6f7194e07ab6051fe96ccf49a30bdf';
 
-		var width = 420,
+		var width = 450,
 				barWidth = 40,
 				height = 500;
 		var y = d3.scaleLinear()
@@ -36,6 +36,60 @@
 
 			var annotation = barChart.selectAll(".annotation")
 					.classed("annotation", true)
+					.data(data["indices"]["data"])
+					.enter()
+					.filter(function(d, i) {return i === 1;})
+					.append('text')
+					.attr("x", 375)
+					// .attr("dx", "2em")
+					.attr("y", 340)
+					.style("fill",function(d){
+						if (d.valeur <= 20) { return "rgb(106,237,117)";}
+						else if ( d.valeur <= 50) { return "rgb(75,161,216)";}
+						else if ( d.valeur <= 60) { return "rgb(121,146,155)";}
+						else { return "rgb(160,8,69)";}
+					})
+					.text("Aujourd'hui")
+
+					var annotation2 = barChart.selectAll(".annotation")
+							.classed("annotation", true)
+							.data(data["indices"]["data"])
+							.enter()
+							.filter(function(d, i) {return i === 1;})
+					.append('text')
+					.attr("x", 375)
+					.attr("dy", "2em")
+					.attr("dx", "4em")
+					.attr("y", 340)
+					.style("fill",function(d){
+						if (d.valeur <= 20) { return "rgb(106,237,117)";}
+						else if ( d.valeur <= 50) { return "rgb(75,161,216)";}
+						else if ( d.valeur <= 60) { return "rgb(121,146,155)";}
+						else { return "rgb(160,8,69)";}
+					})
+					.text("l'indice de qualité de l'air")
+
+					var annotation3 = barChart.selectAll(".annotation")
+							.classed("annotation", true)
+							.data(data["indices"]["data"])
+							.enter()
+							.filter(function(d, i) {return i === 1;})
+					.append('text')
+					.attr("x", 375)
+					.attr("dx", "-1em")
+					.attr("dy", "4em")
+					.attr("y", 340)
+					.style("fill",function(d){
+						if (d.valeur <= 20) { return "rgb(106,237,117)";}
+						else if ( d.valeur <= 50) { return "rgb(75,161,216)";}
+						else if ( d.valeur <= 60) { return "rgb(121,146,155)";}
+						else { return "rgb(160,8,69)";}
+					})
+					.text(function(d) {return "est " + d.qualificatif;})
+
+
+			var arrow = barChart.selectAll(".arrow")
+					.classed("arrow", true)
 					.data(data["indices"]["data"])
 					.enter()
 					.filter(function(d, i) {return i === 1;})
